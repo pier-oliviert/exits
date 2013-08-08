@@ -11,26 +11,28 @@ Designed with an emphasis on readability, it also is designed to work with your 
 
 Let's assume you have Admin & User and want to let admin have access to everything and restrict User to edit their own stuff.
 
-		# controllers/application_controller.rb
-		class ApplicationController < ActionController::Base
-			before_action :restrict_routes!
-		end
+```ruby
+# controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  before_action :restrict_routes!
+end
 
-		# controllers/posts_controller.rb
-		class PostsController < ActionController::Base
-			allow Admin, :all
-			allow User, :show, :new, :create, :edit
-
-			def admin
-			end
-
-			def edit
-				@post = Post.find params[:id].to_i
-				allow! User do
-					current_user.eql? @post.user
-				end
-			end
-		end
+# controllers/posts_controller.rb
+class PostsController < ActionController::Base
+  allow Admin, :all
+  allow User, :show, :new, :create, :edit
+  
+  def admin
+  end
+	
+  def edit
+    @post = Post.find params[:id].to_i
+    allow! User do
+      current_user.eql? @post.user
+    end
+  end
+end
+```
 
 First of all, for Exits to work, you need to add `before_action :restrict_routes!` to your ApplicationController.
 
@@ -51,30 +53,37 @@ When a user is unauthorized the default behavior is to set a flash message and r
 
 You can override this behavior.
 
-		# controllers/application_controller.rb
-		class ApplicationController < ActionController::Base
-			before_action :restrict_routes!
-		
-			def unauthorized	(exception)
-				# Handle unauthorized user here
-			end
-		end
-
+```ruby
+# controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  before_action :restrict_routes!
+  
+  def unauthorized	(exception)
+    # Handle unauthorized user here
+  end
+end
+```
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'exits'
+```ruby
+gem 'exits'
+```
 
 And then execute:
 
-    $ bundle
+```bash
+$ bundle
+```
 
 ## Test
 Exits comes with a test suite.
 
-		$ rake test
+```bash
+$ rake test
+```
 
 ## Contributing
 
