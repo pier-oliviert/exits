@@ -32,7 +32,7 @@ Let's assume you have Admin & User and want to let admin have access to everythi
 			end
 		end
 
-First of all, for Exits to work, you need to add `before_action :restrict_routes` to your ApplicationController.
+First of all, for Exits to work, you need to add `before_action :restrict_routes!` to your ApplicationController.
 
 Exits takes a very strict approach to handling access. If you don't allow access to an action for a given user class, _it won't be authorized to access such action._
 
