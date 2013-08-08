@@ -15,6 +15,7 @@ module Exits
     end
 
     def authorized?(controller_class, klass, action)
+      return true if klass.eql?(NilClass)
       controller = @controllers.fetch(controller_class, {})
       return false if controller.nil?
       controller.authorized? klass, action

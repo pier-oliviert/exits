@@ -43,6 +43,13 @@ describe Exits::ActionController::Helpers do
     end
   end
 
+  it 'should authorize if no user exists (Guest)' do
+    @controller.action_name = :index
+    @controller.current_user = nil
+
+    assert @controller.class.rules.authorized? @controller.class, @controller.current_user.class, @controller.action_name
+  end
+
   it 'should not authorize a user at the action level' do
     @controller.action_name = :edit
     @controller.current_user = User.new
