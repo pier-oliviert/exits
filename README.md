@@ -11,12 +11,12 @@ Designed with an emphasis on readability, it also is designed to work with your 
 
 Let's assume you have Admin & User and want to let admin have access to everything and restrict User to edit their own stuff.
 
-		\# controllers/application_controller.rb
+		# controllers/application_controller.rb
 		class ApplicationController < ActionController::Base
 			before_action :restrict_routes!
 		end
 
-		\# controllers/posts_controller.rb
+		# controllers/posts_controller.rb
 		class PostsController < ActionController::Base
 			allow Admin, :all
 			allow User, :show, :new, :create, :edit
@@ -51,12 +51,12 @@ When a user is unauthorized the default behavior is to set a flash message and r
 
 You can override this behavior.
 
-		\# controllers/application_controller.rb
+		# controllers/application_controller.rb
 		class ApplicationController < ActionController::Base
 			before_action :restrict_routes!
 		
 			def unauthorized	(exception)
-				\# Handle unauthorized user here
+				# Handle unauthorized user here
 			end
 		end
 
