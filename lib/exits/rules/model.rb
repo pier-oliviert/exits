@@ -1,6 +1,6 @@
 module Exits
   class Rules
-    class User
+    class Model
       class Exits::Rules::ConfusingRulesError < StandardError; end;
       def initialize
         @actions = []
@@ -10,7 +10,7 @@ module Exits
         @actions = @actions | actions.flatten
 
         if @actions.size > 1 && @actions.include?(:all)
-          raise Exits::Rules::ConfusingRulesError, "You have :all and specific actions within the same controller/user rule."
+          raise Exits::Rules::ConfusingRulesError, "You have :all and specific actions within the same controller/model rule."
         end
       end
 

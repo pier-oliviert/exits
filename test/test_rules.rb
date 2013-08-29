@@ -12,7 +12,7 @@ describe Exits::Rules do
 
   describe Exits::Rules::User do
     def setup
-      @rule = Exits::Rules::User.new
+      @rule = Exits::Rules::Model.new
     end
 
     it 'should not authorize if no rules have been set' do
