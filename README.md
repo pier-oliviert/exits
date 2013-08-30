@@ -19,7 +19,7 @@ end
 ```
 
 For Exits to work, you need to add `before_action :restrict_routes!` to your ApplicationController.
-
+```ruby
 # controllers/posts_controller.rb
 class PostsController < ActionController::Base
   allow Admin, :all
