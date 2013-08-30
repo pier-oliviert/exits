@@ -4,6 +4,7 @@ module Exits
       class Exits::Rules::ConfusingRulesError < StandardError; end;
       def initialize
         @actions = []
+        @resources = [:index, :new, :show, :edit, :destroy, :update, :create].freeze
       end
 
       def allow(*actions)
@@ -16,6 +17,7 @@ module Exits
 
       def authorized?(action)
         return true if @actions.include?(:all)
+        return true if @actions.include?(:resources) && @resources.include?(action)
         return @actions.include?(action)
       end
     end

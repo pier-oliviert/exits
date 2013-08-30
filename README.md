@@ -16,13 +16,20 @@ Let's assume you have Admin & User and want to let admin have access to everythi
 class ApplicationController < ActionController::Base
   before_action :restrict_routes!
 end
+```
+
+For Exits to work, you need to add `before_action :restrict_routes!` to your ApplicationController.
 
 # controllers/posts_controller.rb
 class PostsController < ActionController::Base
   allow Admin, :all
-  allow User, :show, :new, :create, :edit
+  allow User, :resources, :follow
   
   def admin
+  end
+
+  def follow
+    #Follow another user
   end
 	
   def edit
@@ -33,8 +40,6 @@ class PostsController < ActionController::Base
   end
 end
 ```
-
-First of all, for Exits to work, you need to add `before_action :restrict_routes!` to your ApplicationController.
 
 Exits takes a very strict approach to handling access. If you don't allow access to an action for a given user class, _it won't be authorized to access such action._
 
@@ -47,6 +52,19 @@ If you need to be more specific about a permission, you can be more precise insi
 If it returns false, Exits will raise an exception and redirect you to :root (You can customize this behavior). 
 
 *Remember:* You have to set permission inside your controller's class. If a user class does not have permission to access the controller, it will never reach the controller's method! e.g PostsController#edit
+
+### Aliases
+
+There is currently two aliases: ```:all``` and ```:resources```. They are shown above inside the PostsController.
+
+If you want to allow a certain model on the whole resource
+```ruby allow User, :resources```
+
+This is the same as doing
+```ruby allow User, :new, :show, :edit, :index, :create, :update, :destroy```
+
+If you want to let a user access _every_ action available in a controller, you may use
+```ruby allow User, :all```
 
 ### Unauthorized
 When a user is unauthorized the default behavior is to set a flash message and redirect to :root.

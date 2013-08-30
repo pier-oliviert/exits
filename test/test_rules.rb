@@ -10,7 +10,7 @@ describe Exits::Rules do
     @rules = Exits::Rules.new
   end
 
-  describe Exits::Rules::User do
+  describe Exits::Rules::Model do
     def setup
       @rule = Exits::Rules::Model.new
     end
@@ -29,7 +29,13 @@ describe Exits::Rules do
       assert @rule.instance_variable_get("@actions").size == 1, "Should only be 1 instance of :show"
     end
 
-    it 'should make a union of every call to Exits::Rules::User#allow' do
+    it 'should only allow default route resources' do
+      @rule.allow(:resources)
+      assert @rule.authorized?(:show), "Couldn't authorize :show"
+      assert !@rule.authorized?(:another_action), "Shouldn't authorize :another_action"
+    end
+
+    it 'should make a union of every call to Exits::Rules::Model#allow' do
       @rule.allow(:show)
       @rule.allow(:show, :edit)
       actions = @rule.instance_variable_get("@actions")
