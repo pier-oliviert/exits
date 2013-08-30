@@ -2,22 +2,22 @@ module Exits
   class Rules
     class Controller
       def initialize
-        @users = {}
+        @models = {}
       end
 
-      def []=(user_class, actions)
-        @users[user_class] ||= Exits::Rules::User.new
-        @users[user_class].allow actions
+      def []=(model_class, actions)
+        @models[model_class] ||= Exits::Rules::Model.new
+        @models[model_class].allow actions
       end
 
-      def [](user_class)
-        @users[user_class]
+      def [](model_class)
+        @models[model_class]
       end
 
       def authorized?(klass, action)
-        user = self[klass]
-        return false if user.nil?
-        user.authorized? action
+        model = self[klass]
+        return false if model.nil?
+        model.authorized? action
       end
     end
   end

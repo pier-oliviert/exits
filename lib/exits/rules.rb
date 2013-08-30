@@ -1,5 +1,5 @@
 require 'exits/rules/controller'
-require 'exits/rules/user'
+require 'exits/rules/model'
 
 module Exits
   class Rules
