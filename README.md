@@ -1,4 +1,4 @@
-# Exits
+# Exits [![Code Climate](https://codeclimate.com/github/pothibo/exits.png)](https://codeclimate.com/github/pothibo/exits) [![Build Status](https://travis-ci.org/pothibo/exits.png)](https://travis-ci.org/pothibo/exits)
 When you want to restrict access to your Rails application.
 
 ## Description
